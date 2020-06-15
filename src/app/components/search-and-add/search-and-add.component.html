@@ -2,16 +2,51 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-half">
-        <div class="field has-addons">
-          <div class="control">
-            <input class="input is-rounded" type="text" placeholder="Search youtube channel">
-          </div>
-          <div class="control">
-            <a class="button is-primary  is-rounded">
-              Search
-            </a>
-          </div>
+
+        <div *ngFor="let channel of channels">
+          <article class="media">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img class="is-rounded" src="{{channel.img}}">
+              </p>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong>{{channel.title}}</strong>
+                  <br>
+                  <button (click)="onSubscribe(channel)" class="button is-primary is-small is-rounded">
+                    Subscribe
+                  </button>
+
+                </p>
+              </div>
+
+            </div>
+          </article>
+
+
         </div>
+
+
+      </div>
+    </div>
+    <div class="columns is-centered">
+
+      <div class="column is-half">
+        <form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)">
+          <div class="field has-addons">
+            <div class="control search-input">
+              <input autocomplete="off" class="input is-rounded" type="text" name="query" ngModel
+                placeholder="Search youtube channel">
+            </div>
+            <div class="control">
+              <button type="submit" class="button is-primary  is-rounded">
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>

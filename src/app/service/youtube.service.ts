@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PlayList } from '../model/playlist.model';
-import { Channel } from '../model/channel.model';
+import { ChannelResponse } from '../model/channel.model';
+import { SearchUser } from '../model/search-user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,18 @@ export class YouTubeService {
   constructor(private http: HttpClient) { }
 
   getChannel(id: string, key: string) {
-    return this.http.get<{items: Channel[]}>(`${this.END_POINT}/channels?part=contentDetails&part=snippet
+    return this.http.get<{items: ChannelResponse[]}>(`${this.END_POINT}/channels?part=contentDetails&part=snippet
     &id=${id}&key=${key}`);
   }
 
   getPlaylistItems(playlistId: string, key: string) {
     return this.http.get<{items: PlayList[]}>(`${this.END_POINT}/playlistItems?part=snippet
     &playlistId=${playlistId}&key=${key}`);
+  }
+
+  getSearch(query: string, key: string) {
+    return this.http.get<{items: SearchUser[]}>(`${this.END_POINT}/search?part=snippet
+    &q=${query}&key=${key}`);
   }
 
 }

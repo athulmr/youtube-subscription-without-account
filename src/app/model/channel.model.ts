@@ -1,4 +1,4 @@
-export interface Channel{
+export interface ChannelResponse{
   contentDetails: {
     relatedPlaylists: {
       uploads: string
