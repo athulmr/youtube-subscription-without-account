@@ -4,10 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
+import { SearchAndAddComponent } from './components/search-and-add/search-and-add.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SubscriptionsComponent,
+    SearchAndAddComponent
   ],
   imports: [
     BrowserModule,
