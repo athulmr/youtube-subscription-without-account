@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { YouTubeService } from 'src/app/service/youtube.service';
 import { environment } from '../../../environments/environment';
 import { NgForm } from '@angular/forms';
+import { Channel } from 'src/app/model/channel.model';
 
 @Component({
   selector: 'app-search-and-add',
@@ -11,19 +12,22 @@ import { NgForm } from '@angular/forms';
 })
 export class SearchAndAddComponent implements OnInit {
   apiKey = environment.apiKey;
-  channels: [{
-    title?: string,
-    id?: string,
-    img?: string
-  }];
+  channels: [Channel];
+  subscribedChannels: Channel[];
+  ids = '';
 
   constructor(private yt: YouTubeService) { }
 
   ngOnInit(): void {
+    this.subscribedChannels = JSON.parse(localStorage.getItem('channels'));
+    if (this.subscribedChannels) {
+      this.subscribedChannels.forEach(channel => {
+        this.ids += channel.id + ',';
+      });
+    }
   }
 
   onSubmit(form: NgForm) {
-    console.log('submitted', form.value);
     this.searchUser(form.value.query);
   }
 
@@ -46,14 +50,24 @@ export class SearchAndAddComponent implements OnInit {
     });
   }
 
-  onSubscribe(channel: any) {
-    const subscribedChannels = JSON.parse(localStorage.getItem('channels'));
-    if (subscribedChannels.filter(c => c.title === channel.title).length === 0) {
-      subscribedChannels.push(channel);
-      localStorage.setItem('channels', JSON.stringify(subscribedChannels));
-    }
-    console.log(subscribedChannels, 'sub chan');
+  onSubscribe(channel: Channel) {
 
+    let alreadyExist = false;
+    console.log(this.subscribedChannels, 'sub chn');
+
+    if (!this.subscribedChannels) {
+      console.log(this.subscribedChannels, 'sub chn nn');
+      this.subscribedChannels = [{title: channel.title, id: channel.id, img: channel.img}];
+      alreadyExist = true;
+    } else if (this.subscribedChannels.filter(c => c.title === channel.title).length > 0) {
+      alreadyExist = true;
+    }
+
+    if (!alreadyExist) {
+      this.subscribedChannels.push(channel);
+      this.ids += channel.id;
+      localStorage.setItem('channels', JSON.stringify(this.subscribedChannels));
+    }
   }
 
 }

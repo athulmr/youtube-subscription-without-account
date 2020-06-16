@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PlayList } from '../model/playlist.model';
-import { ChannelResponse } from '../model/channel.model';
+import { ChannelResponse } from '../model/channel-response.model';
 import { SearchUser } from '../model/search-user.model';
 
 @Injectable({

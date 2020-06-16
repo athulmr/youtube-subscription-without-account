@@ -1,3 +1,35 @@
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Subscriptions
+      </h1>
+      <h2 class="subtitle">
+        <div class="columns is-mobile">
+
+          <div class="column is-1" *ngFor="let channel of subscribedChannels">
+            <figure class="media-left">
+              <p class="image is-64x64">
+                <img class="is-rounded" src="{{channel.img}}">
+              </p>
+            </figure>
+          </div>
+        </div>
+
+        <br>
+        <span *ngIf="subscribedChannels">
+          You are subscribed to {{subscribedChannels.length}} channels.
+        </span>
+        <br>
+        <a [routerLink]="['/sub']" [queryParams]="{ids:ids}" >
+          Click to view updates
+        </a>
+        <br>
+      </h2>
+    </div>
+  </div>
+</section>
+
 <div class="section search">
   <div class="container">
     <div class="columns is-centered">

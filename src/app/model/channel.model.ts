@@ -1,7 +1,5 @@
-export interface ChannelResponse{
-  contentDetails: {
-    relatedPlaylists: {
-      uploads: string
-    }
-  };
+export interface Channel {
+  title?: string;
+  id?: string;
+  img?: string;
 }
