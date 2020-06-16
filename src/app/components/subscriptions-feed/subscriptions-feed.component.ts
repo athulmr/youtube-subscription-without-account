@@ -6,11 +6,11 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-subscriptions',
-  templateUrl: './subscriptions.component.html',
+  templateUrl: './subscriptions-feed.component.html',
   styles: [
   ]
 })
-export class SubscriptionsComponent implements OnInit {
+export class SubscriptionsFeedComponent implements OnInit {
 
   items: PlayList[] = [];
   apiKey = environment.apiKey;

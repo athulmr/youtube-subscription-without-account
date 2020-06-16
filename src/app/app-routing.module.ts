@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
+import { SubscriptionsFeedComponent } from './components/subscriptions-feed/subscriptions-feed.component';
 import { SubscriptionsAddComponent } from './components/subscriptions-add/subscriptions-add.component';
 
 
 const routes: Routes = [
-  { path: 'sub', component: SubscriptionsComponent },
+  { path: 'sub', component: SubscriptionsFeedComponent },
   { path: '', component: SubscriptionsAddComponent }
 ];
 
