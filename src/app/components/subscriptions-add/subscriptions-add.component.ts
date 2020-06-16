@@ -6,11 +6,11 @@ import { Channel } from 'src/app/model/channel.model';
 
 @Component({
   selector: 'app-search-and-add',
-  templateUrl: './search-and-add.component.html',
+  templateUrl: './subscriptions-add.component.html',
   styles: [
   ]
 })
-export class SearchAndAddComponent implements OnInit {
+export class SubscriptionsAddComponent implements OnInit {
   apiKey = environment.apiKey;
   channels: [Channel];
   subscribedChannels: Channel[];

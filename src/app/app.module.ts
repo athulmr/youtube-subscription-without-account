@@ -6,14 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
-import { SearchAndAddComponent } from './components/search-and-add/search-and-add.component';
+import { SubscriptionsAddComponent } from './components/subscriptions-add/subscriptions-add.component';
 import { GithubComponent } from './components/github/github.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubscriptionsComponent,
-    SearchAndAddComponent,
+    SubscriptionsAddComponent,
     GithubComponent
   ],
   imports: [
