@@ -12,9 +12,16 @@ export class YouTubeService {
   END_POINT = 'https://www.googleapis.com/youtube/v3';
   constructor(private http: HttpClient) { }
 
-  getChannel(id: string, key: string) {
+  getChannel(id: string, key: string, type = 'channel') {
+    let searchBy = 'id';
+    if (type === 'user') {
+      searchBy = 'forUsername';
+    } else if (type !== 'channel') {
+      throw new Error('getChannel() : Unknown channel search type');
+    }
+
     return this.http.get<{items: ChannelResponse[]}>(`${this.END_POINT}/channels?part=contentDetails&part=snippet
-    &id=${id}&key=${key}`);
+    &${searchBy}=${id}&key=${key}`);
   }
 
   getPlaylistItems(playlistId: string, key: string) {
@@ -23,7 +30,7 @@ export class YouTubeService {
   }
 
   getSearch(query: string, key: string) {
-    return this.http.get<{items: SearchUser[]}>(`${this.END_POINT}/search?part=snippet
+    return this.http.get<{items: SearchUser[]}>(`${this.END_POINT}/channels?part=snippet
     &q=${query}&key=${key}`);
   }
 

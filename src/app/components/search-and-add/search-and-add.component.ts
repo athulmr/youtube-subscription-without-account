@@ -28,23 +28,33 @@ export class SearchAndAddComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    this.searchUser(form.value.query);
+    const str = form.value.query;
+    form.reset();
+    const result = str.match(/(youtube.com\/user\/.[\w-]*|youtube.com\/channel\/.[\w-]*)/);
+    if (result) {
+      const details = result[0].split('/');
+      console.log(str, result[0], details);
+      this.searchUser(details);
+
+      } else {
+        console.error('Invalid URL provided');
+      }
   }
 
-  searchUser(q: string){
+  searchUser(details: string[]){
     this.channels = [{}];
     this.channels.pop();
-    this.yt.getSearch(q, this.apiKey).subscribe(res => {
+    this.yt.getChannel(details[2], this.apiKey, details[1]).subscribe(res => {
       console.log(res, 'search user');
       res.items.forEach(item => {
-        if (item.id.kind === 'youtube#channel') {
-          console.log(item.snippet.channelTitle, '<-title ', item.snippet.thumbnails.default);
+        if (item.kind === 'youtube#channel') {
+          console.log(item.snippet.title, '<-title ', item.snippet.thumbnails.default);
           this.channels.push({
-            title: item.snippet.channelTitle,
+            title: item.snippet.title,
             img: item.snippet.thumbnails.default.url,
-            id: item.id.channelId
+            id: item.id,
+            uploads: item.contentDetails.relatedPlaylists.uploads
           });
-
         }
       });
     });

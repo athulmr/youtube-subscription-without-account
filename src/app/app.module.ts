@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
 import { SearchAndAddComponent } from './components/search-and-add/search-and-add.component';
+import { GithubComponent } from './components/github/github.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubscriptionsComponent,
-    SearchAndAddComponent
+    SearchAndAddComponent,
+    GithubComponent
   ],
   imports: [
     BrowserModule,
