@@ -69,15 +69,18 @@ export class SubscriptionsAddComponent implements OnInit {
       console.log(this.subscribedChannels, 'sub chn nn');
       this.subscribedChannels = [{title: channel.title, id: channel.id, img: channel.img}];
       alreadyExist = true;
+      this.ids += channel.id + ',';
+
     } else if (this.subscribedChannels.filter(c => c.title === channel.title).length > 0) {
       alreadyExist = true;
     }
 
     if (!alreadyExist) {
       this.subscribedChannels.push(channel);
-      this.ids += channel.id;
-      localStorage.setItem('channels', JSON.stringify(this.subscribedChannels));
+      this.ids += channel.id + ',';
     }
+
+    localStorage.setItem('channels', JSON.stringify(this.subscribedChannels));
   }
 
 }
