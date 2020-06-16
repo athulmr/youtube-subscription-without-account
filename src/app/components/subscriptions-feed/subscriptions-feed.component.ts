@@ -3,6 +3,7 @@ import { PlayList } from 'src/app/model/playlist.model';
 import { YouTubeService } from 'src/app/service/youtube.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { Channel } from 'src/app/model/channel.model';
 
 @Component({
   selector: 'app-subscriptions',
@@ -14,10 +15,13 @@ export class SubscriptionsFeedComponent implements OnInit {
 
   items: PlayList[] = [];
   apiKey = environment.apiKey;
+  channelMap: Map<string, Channel>;
   constructor(private yt: YouTubeService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.items = [];
+    const channels: Channel[] = JSON.parse(localStorage.getItem('channels'));
+    this.channelMap = new Map(channels.map(i => [i.id, i]));
     this.route.queryParams.subscribe(
       params => {
         console.log(params.ids);

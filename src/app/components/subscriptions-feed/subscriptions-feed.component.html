@@ -1,6 +1,41 @@
-<div *ngFor="let item of items">
-  <a href="https://www.youtube.com/watch?v={{item.snippet.resourceId.videoId}}">
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-fullhd">
 
-    <img src="{{item.snippet.thumbnails.default.url}}" alt="{{item.snippet.title}}"> {{item.snippet.title}} | {{item.snippet.publishedAt}}
-   </a>
- </div>
+      <div class="columns is-multiline">
+
+              <div class="column is-3" *ngFor="let item of items">
+                <a href="https://www.youtube.com/watch?v={{item.snippet.resourceId.videoId}}">
+                  <img src="{{item.snippet.thumbnails.medium.url}}" width="100%" alt="{{item.snippet.title}}">
+                  <br>
+                  <article class="media">
+                    <figure class="media-left">
+                      <p class="image is-48x48">
+                        <img class="is-rounded" src="{{channelMap.get(item.snippet.channelId).img}}">
+                      </p>
+                    </figure>
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          {{ (item.snippet.title.length>55)? (item.snippet.title | slice:0:55)+'...':(item.snippet.title) }}
+
+                          <br>
+                          <small>
+                            {{item.snippet.channelTitle}}
+                          </small>
+                          <br>
+                          <small>
+                            {{item.snippet.publishedAt}}
+                          </small>
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                </a>
+              </div>
+            </div>
+
+
+    </div>
+  </div>
+</section>
