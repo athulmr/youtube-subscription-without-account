@@ -1,11 +1,15 @@
-<section class="hero">
-  <div class="hero-body">
+
+
+<section class="hero is-medium is-mobile">
+  <div class="hero-body ">
     <div class="container">
 
     <div class="columns is-centered">
       <div class="column is-half">
       <h1 class="title">
-        Subscriptions
+        Subscriptions <span *ngIf="subscribedChannels">
+          ({{subscribedChannels.length}})
+        </span>
       </h1>
       <h2 class="subtitle">
         <div class="columns is-mobile">
@@ -19,13 +23,8 @@
           </div>
         </div>
 
-        <br>
-        <span *ngIf="subscribedChannels">
-          You are subscribed to {{subscribedChannels.length}} channels.
-        </span>
-        <br>
-        <a [routerLink]="['/sub']" [queryParams]="{ids:ids}" >
-          Click to view updates
+        <a class="button is-rounded is-danger is-outlined" [routerLink]="['/sub']" [queryParams]="{ids:ids}" >
+          Latest videos
         </a>
         <br>
       </h2>
@@ -34,8 +33,6 @@
     </div>
   </div>
 </section>
-
-<app-github></app-github>
 
 <div class="section search">
   <div class="container">
