@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiKey: 'AIzaSyAm1bn7RWPxzoyTVePktGMFjLM3GRB2LvI'
+  apiKey: 'AIzaSyAm1bn7RWPxzoyTVePktGMFjLM3GRB2LvI',
+  feedUpdateFreqInMin: 5
 };

@@ -15,22 +15,50 @@ export class SubscriptionsFeedComponent implements OnInit {
 
   items: PlayList[] = [];
   apiKey = environment.apiKey;
+  updateFreq = environment.feedUpdateFreqInMin * 60000;
+  upToDate = false;
   channelMap: Map<string, Channel>;
   constructor(private yt: YouTubeService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.items = [];
+    this.upToDate = this.recentlyUpdated();
+    console.log(this.upToDate, 'uptodate');
+
+    this.items = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : [];
     const channels: Channel[] = JSON.parse(localStorage.getItem('channels'));
     this.channelMap = new Map(channels.map(i => [i.id, i]));
+
     this.route.queryParams.subscribe(
       params => {
-        console.log(params.ids);
+        const idList = params.ids.split(',');
 
-        if (params.ids) {
+        idList.forEach(res => {
+          if (res) {
+            if (!this.channelMap.get(res)) {
+              this.upToDate = false;
+            }
+          }
+        });
 
+        if (params.ids && !this.upToDate) {
+          this.items = [];
           this.getChannels(params.ids);
+          localStorage.setItem('lastUpdated', new Date().getTime().toString());
         }
       });
+  }
+
+  recentlyUpdated(): boolean {
+    const lastUpdated = localStorage.getItem('lastUpdated');
+    const now = new Date();
+
+    if (lastUpdated) {
+      return (now.getTime() - parseFloat(lastUpdated)) < this.updateFreq;
+    } else {
+      localStorage.setItem('lastUpdated', now.getTime().toString());
+    }
+
+    return false;
   }
 
   getChannels(id: string) {
@@ -56,6 +84,7 @@ export class SubscriptionsFeedComponent implements OnInit {
       } else {
         this.items = this.items.concat(res.items);
         this.sortPlayListByDate(this.items);
+        localStorage.setItem('items', JSON.stringify(this.items));
       }
     });
   }
